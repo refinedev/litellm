@@ -70,9 +70,11 @@ RUN prisma generate
 RUN chmod +x docker/entrypoint.sh
 RUN chmod +x docker/prod_entrypoint.sh
 
+COPY proxy_server_config.yaml .
+
 EXPOSE 4000/tcp
 
 ENTRYPOINT ["docker/prod_entrypoint.sh"]
 
 # Append "--detailed_debug" to the end of CMD to view detailed debug logs
-CMD ["--port", "4000"]
+CMD ["--port", "4000", "--config", "/app/proxy_server_config.yaml"]
